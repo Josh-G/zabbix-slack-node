@@ -15,8 +15,6 @@ while ((result = parser.exec(payload)) !== null) {
 }
 tags['when'] = new Date(tags['when']);
 
-console.log(tags);
-
 var color = '#59db8f';
 if (tags['status'] == 'PROBLEM') {
     if (tags['severity'] == 'Warning') {
