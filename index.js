@@ -1,10 +1,13 @@
 var IncomingWebhook = require('@slack/client').IncomingWebhook;
+var winston = require("winston");
 
 var url = process.env.SLACK_WEBHOOK_URL || '***REMOVED***';
 
 var to = process.argv[2];
 var title = process.argv[3];
 var payload = process.argv[4];
+
+winston.info(payload);
 
 var parser = /^([\d\w ]+?):(.+?)$/gm;
 parser = new RegExp(parser);
@@ -74,6 +77,11 @@ var response = {
                 {
                     title: "Graph Link",
                     value: '<http://zabbix/history.php?action=showgraph&itemids%5B%5D='+tags['item id']+'|Click Me>',
+                    short: true,
+                },
+                {
+                    title: "TEST",
+                    value: __dirname,
                     short: true,
                 },
             ]
