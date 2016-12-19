@@ -7,6 +7,8 @@ var to = process.argv[2];
 var title = process.argv[3];
 var payload = process.argv[4];
 
+winston.add(winston.transports.File, { filename: 'slack.log' });
+
 winston.info(payload);
 
 var parser = /^([\d\w ]+?):(.+?)$/gm;
