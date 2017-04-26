@@ -7,7 +7,9 @@ var to = process.argv[2];
 var title = process.argv[3];
 var payload = process.argv[4];
 
-winston.add(winston.transports.File, { filename: 'slack.log' });
+winston.add(winston.transports.File, {
+    filename: 'slack.log'
+});
 
 winston.info(payload);
 
@@ -24,8 +26,7 @@ var color = '#59db8f';
 if (tags['status'] == 'PROBLEM') {
     if (tags['severity'] == 'Warning') {
         color = '#FFC859';
-    }
-    else if (tags['severity'] == 'Average') {
+    } else if (tags['severity'] == 'Average') {
         color = '#FFA059';
     }
 }
@@ -34,63 +35,62 @@ var msg_title = 'Unknown Event!';
 var icon = ':grey_question:';
 if (tags['status'] == 'OK') {
     icon = ':heavy_check_mark:';
-    msg_title = 'Resolved: '+tags['trigger']
-}
-else {
+    msg_title = 'Resolved: ' + tags['trigger']
+} else {
     if (tags['severity'] == 'Disaster' || tags['Severity'] == 'High' || tags['severity'] == 'Average') {
         icon = ':bangbang:';
-    }
-    else {
+    } else {
         icon = ':exclamation:';
     }
-    msg_title = 'PROBLEM: '+tags['trigger']
+    msg_title = 'PROBLEM: ' + tags['trigger']
 }
 
 var response = {
-        username: 'zabbix',
-        // channel: '#test',
-        channel: to,
-        icon_emoji: icon,
-        attachments: [{
-            title: msg_title,
-            title_link: 'http://zabbix/events.php?filter_set=1&triggerid='+tags['trigger id'],
-            color: color,
-            fields: [
-                {
-                    title: "Trigger",
-                    value: tags['trigger'],
-                    short: true,
-                },
-                {
-                    title: "Severity",
-                    value: tags['severity'],
-                    short: true,
-                },
-                {
-                    title: "Current Value",
-                    value: tags['value'],
-                    short: true,
-                },
-                {
-                    title: "IP Address",
-                    value: tags['ip'],
-                    short: true,
-                },
-                {
-                    title: "Graph Link",
-                    value: '<http://zabbix/history.php?action=showgraph&itemids%5B%5D='+tags['item id']+'|Click Me>',
-                    short: true,
-                },
-                {
-                    title: "TEST",
-                    value: __dirname,
-                    short: true,
-                },
-            ]
-        }],
+    username: 'zabbix',
+    // channel: '#test',
+    channel: to,
+    icon_emoji: icon,
+    attachments: [{
+        title: tags['host'] + ' ' + msg_title,
+        title_link: 'http://zabbix/events.php?filter_set=1&triggerid=' + tags['trigger id'],
+        color: color,
+        fields: [{
+                title: "Trigger",
+                value: tags['trigger'],
+                short: true,
+            },
+            {
+                title: "Severity",
+                value: tags['severity'],
+                short: true,
+            },
+            {
+                title: "Current Value",
+                value: tags['value'],
+                short: true,
+            },
+            {
+                title: "When",
+                value: tags['when'],
+                short: true,
+            },
+            {
+                title: "Graph Link",
+                value: '<http://zabbix/history.php?action=showgraph&itemids%5B%5D=' + tags['item id'] + '|Click Me>',
+                short: true,
+            },
+            {
+                title: "TEST",
+                value: __dirname,
+                short: true,
+            },
+        ]
+    }],
 };
 
-var webhook = new IncomingWebhook(url, {iconEmoji: icon});
-webhook.send(response, function() {
+var webhook = new IncomingWebhook(url, {
+    iconEmoji: icon
+});
+webhook.send(response, function () {
 
 });
