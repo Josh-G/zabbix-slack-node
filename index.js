@@ -76,12 +76,12 @@ var response = {
             },
             {
                 title: "Graph Link",
-                value: '<http://zabbix/history.php?action=showgraph&itemids%5B%5D=' + tags['item id'] + '|Click Me>',
+                value: '<http://zabbix.synergitech.net/history.php?action=showgraph&itemids%5B%5D=' + tags['item id'] + '|Click Me>',
                 short: true,
             },
             {
-                title: "TEST",
-                value: __dirname,
+                title: "Status",
+                value: tags['status'],
                 short: true,
             },
         ]
