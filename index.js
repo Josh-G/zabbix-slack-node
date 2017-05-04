@@ -22,13 +22,21 @@ while ((result = parser.exec(payload)) !== null) {
 }
 tags['when'] = new Date(tags['when']);
 
-var color = '#59db8f';
+var color = null;
 if (tags['status'] == 'PROBLEM') {
-    if (tags['severity'] == 'Warning') {
+    if (tags['severity'] == 'Information') {
+        color = '#3aa3e3';
+    } else if (tags['severity'] == 'Warning') {
         color = '#FFC859';
     } else if (tags['severity'] == 'Average') {
         color = '#FFA059';
+    } else if (tags['severity'] == 'High') {
+        color = '#FC673A';
+    } else if (tags['severity'] == 'Disaster') {
+        color = '#F60606';
     }
+} else if (tags['status'] == 'OK') {
+    color = '#59db8f'
 }
 
 var msg_title = 'Unknown Event!';
@@ -53,7 +61,6 @@ var response = {
     attachments: [{
         title: tags['host'] + ' ' + msg_title,
         title_link: 'http://zabbix/events.php?filter_set=1&triggerid=' + tags['trigger id'],
-        color: color,
         fields: [{
                 title: "Trigger",
                 value: tags['trigger'],
@@ -87,6 +94,9 @@ var response = {
         ]
     }],
 };
+if (color !== null) {
+    response.attachments[0].color = color;
+}
 
 var webhook = new IncomingWebhook(url, {
     iconEmoji: icon
