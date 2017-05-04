@@ -45,7 +45,7 @@ if (tags['status'] == 'OK') {
     icon = ':heavy_check_mark:';
     msg_title = 'Resolved: ' + tags['trigger']
 } else {
-    if (tags['severity'] == 'Disaster' || tags['Severity'] == 'High' || tags['severity'] == 'Average') {
+    if (tags['severity'] == 'Disaster' || tags['severity'] == 'High' || tags['severity'] == 'Average') {
         icon = ':bangbang:';
     } else {
         icon = ':exclamation:';
