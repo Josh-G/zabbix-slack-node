@@ -102,11 +102,15 @@ if (tags['status'] == 'PROBLEM' &&
         },
     ];
     attachment.fields = fields;
+} else if (tags['severity'] == 'Information') {
+    if (tags['status'] == 'PROBLEM') {
+        attachment.title = tags['host'];
+        attachment.text = ':information_source: ' + tags['trigger'];
+    } else {
+        process.exit();
+    }
 } else if (tags['status'] == 'OK') {
     attachment.text = ':heavy_check_mark: ' + msg_title;
-} else if (tags['severity'] == 'Information' && tags['status'] == 'PROBLEM') {
-    attachment.title = tags['host'];
-    attachment.text = ':information_source: ' + tags['trigger'];
 }
 
 response.attachments.push(attachment);
