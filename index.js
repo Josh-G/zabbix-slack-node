@@ -58,49 +58,59 @@ var response = {
     // channel: '#test',
     channel: to,
     icon_emoji: icon,
-    attachments: [{
-        title: tags['host'] + ' ' + msg_title,
-        title_link: 'http://zabbix/events.php?filter_set=1&triggerid=' + tags['trigger id'],
-        fields: [{
-                title: "Trigger",
-                value: tags['trigger'],
-                short: true,
-            },
-            {
-                title: "Severity",
-                value: tags['severity'],
-                short: true,
-            },
-            {
-                title: "Current Value",
-                value: tags['value'],
-                short: true,
-            },
-            {
-                title: "When",
-                value: tags['when'],
-                short: true,
-            },
-            {
-                title: "Graph Link",
-                value: '<http://zabbix.synergitech.net/history.php?action=showgraph&itemids%5B%5D=' + tags['item id'] + '|Click Me>',
-                short: true,
-            },
-            {
-                title: "Status",
-                value: tags['status'],
-                short: true,
-            },
-        ]
-    }],
+    attachments: [],
+};
+var attachment = {
+    title: tags['host'] + ' ' + msg_title,
+    title_link: 'http://zabbix/events.php?filter_set=1&triggerid=' + tags['trigger id'],
+    fields: []
 };
 if (color !== null) {
-    response.attachments[0].color = color;
+    attachment.color = color;
+}
+if (tags['status'] == 'PROBLEM' &&
+    tags['severity'] != 'Information') {
+    var fields = [{
+            title: "Trigger",
+            value: tags['trigger'],
+            short: true,
+        },
+        {
+            title: "Severity",
+            value: tags['severity'],
+            short: true,
+        },
+        {
+            title: "Current Value",
+            value: tags['value'],
+            short: true,
+        },
+        {
+            title: "When",
+            value: tags['when'],
+            short: true,
+        },
+        {
+            title: "Graph Link",
+            value: '<http://zabbix.synergitech.net/history.php?action=showgraph&itemids%5B%5D=' + tags['item id'] + '|Click Me>',
+            short: true,
+        },
+        {
+            title: "Status",
+            value: tags['status'],
+            short: true,
+        },
+    ];
+    attachment.fields = fields;
+} else if (tags['status'] == 'OK') {
+    attachment.text = ':heavy_check_mark: ' + msg_title;
+} else if (tags['severity'] == 'Information') {
+    attachment.text = ':information_source: ' + msg_title;
 }
 
+response.attachments.push(attachment);
 var webhook = new IncomingWebhook(url, {
     iconEmoji: icon
 });
-webhook.send(response, function () {
 
-});
+webhook.send(response, function (err, res) {});
