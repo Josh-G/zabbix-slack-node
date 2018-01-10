@@ -8,7 +8,7 @@ var url = process.env.SLACK_WEBHOOK_URL || '***REMOVED***';
 var to = process.argv[2];
 var title = process.argv[3];
 var payload = process.argv[4];
-var sourceURL = process.argv[5].trim() || os.hostname();
+var sourceURL = process.argv[5].trim() || 'https://' + os.hostname();
 
 winston.add(winston.transports.File, {
     filename: 'slack.log'
@@ -46,6 +46,8 @@ var icon = ':grey_question:';
 if (tags['status'] == 'OK') {
     icon = ':heavy_check_mark:';
     msg_title = 'Resolved: ' + tags['trigger']
+} else if (tags['acknowledgement'] == 'yes') {
+    icon = ':eye:';
 } else {
     if (tags['severity'] == 'Disaster' || tags['severity'] == 'High' || tags['severity'] == 'Average') {
         icon = ':bangbang:';
@@ -62,20 +64,26 @@ var response = {
     attachments: [],
 };
 
-var attachment = {
-    title: icon + tags['trigger'],
-    text: tags['severity'] + " on " + tags['host'],
-    title_link: sourceURL + '/events.php?filter_set=1&triggerid=' + tags['trigger id'],
-    fields: [],
-    actions: [],
-};
+if (tags['acknowledgement'] == 'yes') {
+    var attachment = {
+        title: icon + " " + title,
+        text: tags['message'],
+    };
+} else {
+    var attachment = {
+        title: icon + " " + tags['trigger'],
+        text: tags['severity'] + " on " + tags['host'],
+        title_link: sourceURL + '/events.php?filter_set=1&triggerid=' + tags['trigger id'],
+        fields: [],
+        actions: [],
+    };
+}
 
 if (color !== null) {
     attachment.color = color;
 }
 
-if (tags['status'] == 'PROBLEM' &&
-    tags['severity'] != 'Information') {
+if (tags['status'] == 'PROBLEM' && tags['severity'] != 'Information' && tags['acknowledgement'] != 'yes') {
         var graphLink = sourceURL + '/history.php?action=showgraph&itemids%5B%5D=' + tags['item id'];
         var fields = [
             {
@@ -111,7 +119,7 @@ if (tags['status'] == 'PROBLEM' &&
         process.exit();
     }
 } else if (tags['status'] == 'OK') {
-    attachment.text = ':heavy_check_mark: ' + msg_title;
+    attachment.text = msg_title;
 }
 response.attachments.push(attachment);
 
