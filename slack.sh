@@ -7,5 +7,6 @@ cd "$parent_path"
 to=$1
 subject=$2
 body=$3
+hostname=$4
 
-node ./index.js "$1" "$2" "$3"
+node ./index.js "$1" "$2" "$3" "$4"
