@@ -17,7 +17,7 @@ IP: {HOST.IP1}
 Template: {TRIGGER.TEMPLATE.NAME}: {TRIGGER.EXPRESSION}
 When: 2018-01-01 00:00:00"
 
-# SUBJECT="***REMOVED*** acknowledged: Processor load is too high on [ALERT TEST]"
+# SUBJECT="Bob acknowledged: Processor load is too high on [ALERT TEST]"
 # BODY="message:
 # acknowledgement: yes
 # status: PROBLEM
