@@ -2,8 +2,6 @@
 
 parent_path=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
 
-cd "$parent_path"
-
 to=$1
 subject=$2
 body=$3
