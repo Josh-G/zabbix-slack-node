@@ -1,19 +1,11 @@
 var IncomingWebhook = require('@slack/client').IncomingWebhook;
-var winston = require("winston");
 var os = require("os");
-var request = require('request');
-
 
 var to = process.argv[2];
 var title = process.argv[3];
 var payload = process.argv[4];
 var sourceURL = process.argv[5].trim() || 'https://' + os.hostname();
 var slackWebhook = process.argv[6];
-
-winston.add(winston.transports.File, {
-    filename: 'slack.log'
-});
-winston.info(payload);
 
 var parser = /^([\d\w ]+?):(.+?)$/gm;
 parser = new RegExp(parser);
@@ -123,7 +115,7 @@ if (tags['status'] == 'PROBLEM' && tags['severity'] != 'Information' && tags['ac
 }
 response.attachments.push(attachment);
 
-var webhook = new IncomingWebhook(url, {
+var webhook = new IncomingWebhook(slackWebhook, {
     iconUrl: "https://s3-eu-west-1.amazonaws.com/synergisite/img/zabbix-logo.png"
 });
 webhook.send(response, function (err, res) {});
