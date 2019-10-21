@@ -3,12 +3,12 @@ var winston = require("winston");
 var os = require("os");
 var request = require('request');
 
-var url = process.env.SLACK_WEBHOOK_URL || '***REMOVED***';
 
 var to = process.argv[2];
 var title = process.argv[3];
 var payload = process.argv[4];
 var sourceURL = process.argv[5].trim() || 'https://' + os.hostname();
+var slackWebhook = process.argv[6];
 
 winston.add(winston.transports.File, {
     filename: 'slack.log'

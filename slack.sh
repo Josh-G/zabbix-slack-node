@@ -8,5 +8,6 @@ to=$1
 subject=$2
 body=$3
 hostname=$4
+slack_hook=$5
 
-node ./index.js "$1" "$2" "$3" "$4"
+node $parent_path/index.js "$to" "$subject" "$body" "$hostname" "$slack_hook"
