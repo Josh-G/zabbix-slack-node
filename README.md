@@ -46,22 +46,22 @@ Acknowledgements:
             <td>Default message</td>
             <td>
                 <pre>
-                    Host: {HOST.NAME1}
-                    Event: {ITEM.KEY1}
-                    Item ID: {ITEM.ID}
-                    Event ID: {EVENT.ID}
-                    Trigger ID: {TRIGGER.ID}
-                    Severity: {TRIGGER.SEVERITY}
-                    Status: {TRIGGER.STATUS}
-                    Trigger: {EVENT.NAME}
-                    Ack: {EVENT.ACK.STATUS}
-                    Service: {TRIGGER.HOSTGROUP.NAME}
-                    Value: {ITEM.VALUE1}
-                    Text: {TRIGGER.STATUS}: {EVENT.NAME}
-                    Tags: {EVENT.TAGS}
-                    IP: {HOST.IP1}
-                    Template: {TRIGGER.TEMPLATE.NAME}: {TRIGGER.EXPRESSION}
-                    When: {EVENT.DATE} {EVENT.TIME}
+Host: {HOST.NAME1}
+Event: {ITEM.KEY1}
+Item ID: {ITEM.ID}
+Event ID: {EVENT.ID}
+Trigger ID: {TRIGGER.ID}
+Severity: {TRIGGER.SEVERITY}
+Status: {TRIGGER.STATUS}
+Trigger: {EVENT.NAME}
+Ack: {EVENT.ACK.STATUS}
+Service: {TRIGGER.HOSTGROUP.NAME}
+Value: {ITEM.VALUE1}
+Text: {TRIGGER.STATUS}: {EVENT.NAME}
+Tags: {EVENT.TAGS}
+IP: {HOST.IP1}
+Template: {TRIGGER.TEMPLATE.NAME}: {TRIGGER.EXPRESSION}
+When: {EVENT.DATE} {EVENT.TIME}
                 </pre>
             </td>
         </tr>
@@ -94,23 +94,23 @@ Acknowledgements:
             <td>Default message</td>
             <td>
                 <pre>
-                    Host: {HOST.NAME1}
-                    Event: {ITEM.KEY1}
-                    Item ID: {ITEM.ID}
-                    Event ID: {EVENT.ID}
-                    Severity: {TRIGGER.SEVERITY}
-                    Status: {TRIGGER.STATUS}
-                    Trigger: {EVENT.NAME}
-                    Trigger ID: {TRIGGER.ID}
-                    Ack: {EVENT.ACK.STATUS}
-                    Service: {TRIGGER.HOSTGROUP.NAME}
-                    Value: {ITEM.VALUE1}
-                    Text: {TRIGGER.STATUS}: {EVENT.NAME}
-                    Tags: {EVENT.TAGS}
-                    IP: {HOST.IP1}
-                    Template: {TRIGGER.TEMPLATE.NAME}: {TRIGGER.EXPRESSION}
-                    When: {EVENT.DATE} {EVENT.TIME}
-                    Recovered: {EVENT.RECOVERY.DATE} {EVENT.RECOVERY.TIME}
+Host: {HOST.NAME1}
+Event: {ITEM.KEY1}
+Item ID: {ITEM.ID}
+Event ID: {EVENT.ID}
+Severity: {TRIGGER.SEVERITY}
+Status: {TRIGGER.STATUS}
+Trigger: {EVENT.NAME}
+Trigger ID: {TRIGGER.ID}
+Ack: {EVENT.ACK.STATUS}
+Service: {TRIGGER.HOSTGROUP.NAME}
+Value: {ITEM.VALUE1}
+Text: {TRIGGER.STATUS}: {EVENT.NAME}
+Tags: {EVENT.TAGS}
+IP: {HOST.IP1}
+Template: {TRIGGER.TEMPLATE.NAME}: {TRIGGER.EXPRESSION}
+When: {EVENT.DATE} {EVENT.TIME}
+Recovered: {EVENT.RECOVERY.DATE} {EVENT.RECOVERY.TIME}
                 </pre>
             </td>
         </tr>
@@ -139,10 +139,10 @@ Acknowledgements:
             <td>Default message</td>
             <td>
                 <pre>
-                    message: {ACK.MESSAGE}
-                    acknowledgement: yes
-                    status: {EVENT.STATUS}
-                    Severity: {TRIGGER.SEVERITY}
+message: {ACK.MESSAGE}
+acknowledgement: yes
+status: {EVENT.STATUS}
+Severity: {TRIGGER.SEVERITY}
                 </pre>
             </td>
         </tr>
